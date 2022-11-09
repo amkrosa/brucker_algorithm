@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import {useCallback, useState} from 'react';
 import ReactFlow, {
     MiniMap,
     Controls,
@@ -23,26 +23,45 @@ const initialNodes = [
     createNode("t2", 7, 0, 100),
 ];
 
-const initialEdges = [{ id: 'e1-2', source: '1', target: '2' }];
+const initialEdges = [{ id: 'e1-2', source: 'T1', target: 'T2', markerEnd: {type: 'arrowclosed', color: 'black'} }];
 
 export function Flow() {
     const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
     const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
+    const [dInput, setDInput] = useState("");
+    const [counter, setCounter] = useState(initialNodes.length+1);
+
+    const handleDInput = (e) => {
+        setDInput(e.target.value)
+    }
+
+    const getNextTaskNumber = () => {
+        setCounter(counter+1)
+        return `T${counter}`
+    }
 
     const onConnect = useCallback((params) => setEdges((eds) => addEdge({...params, markerEnd:  {type: 'arrowclosed', color: 'black'}}, eds)),
         [setEdges]);
 
+    const addNode = () => setNodes([...nodes, createNode(getNextTaskNumber(), dInput, 0, 0)])
+
     return (
-        <ReactFlow
-            nodes={nodes}
-            edges={edges}
-            onNodesChange={onNodesChange}
-            onEdgesChange={onEdgesChange}
-            onConnect={onConnect}
-        >
-            <MiniMap />
-            <Controls />
-            <Background />
-        </ReactFlow>
+        <div>
+            <div style={{ height: 800 }}>
+                <ReactFlow
+                    nodes={nodes}
+                    edges={edges}
+                    onNodesChange={onNodesChange}
+                    onEdgesChange={onEdgesChange}
+                    onConnect={onConnect}
+                >
+                    <MiniMap />
+                    <Controls />
+                    <Background />
+                </ReactFlow>
+            </div>
+            <input value={dInput} onChange={handleDInput} />
+            <button onClick={addNode}>stwórz</button>
+        </div>
     );
 }
