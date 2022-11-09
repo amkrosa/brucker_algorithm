@@ -10,9 +10,17 @@ import ReactFlow, {
 // 👇 you need to import the reactflow styles
 import 'reactflow/dist/style.css';
 
+const nodes = [
+    { id: 'T1', d: 1},
+];
+
+const createNode = (id, d, x, y) => {
+    return { id, position: { x, y }, data: {d: d, label: `${id}, d=${d}` } }
+}
+
 const initialNodes = [
-    { id: '1', position: { x: 0, y: 0 }, data: { label: '1' } },
-    { id: '2', position: { x: 0, y: 100 }, data: { label: '2' } },
+    createNode("t1", 5, 0, 0),
+    createNode("t2", 7, 0, 100),
 ];
 
 const initialEdges = [{ id: 'e1-2', source: '1', target: '2' }];
@@ -21,7 +29,7 @@ export function Flow() {
     const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
     const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
 
-    const onConnect = useCallback((params) => setEdges((eds) => addEdge(params, eds)),
+    const onConnect = useCallback((params) => setEdges((eds) => addEdge({...params, markerEnd:  {type: 'arrowclosed', color: 'black'}}, eds)),
         [setEdges]);
 
     return (
