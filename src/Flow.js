@@ -9,6 +9,7 @@ import ReactFlow, {
 } from 'reactflow';
 // 👇 you need to import the reactflow styles
 import 'reactflow/dist/style.css';
+import {algorithm} from "./algorithm";
 
 const nodes = [
     { id: 'T1', d: 1},
@@ -24,6 +25,7 @@ const initialNodes = [
 ];
 
 const initialEdges = [{ id: 'e1-2', source: 'T1', target: 'T2', markerEnd: {type: 'arrowclosed', color: 'black'} }];
+const calculatedNodes = [];
 
 export function Flow() {
     const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
@@ -62,6 +64,7 @@ export function Flow() {
             </div>
             <input value={dInput} onChange={handleDInput} />
             <button onClick={addNode}>stwórz</button>
+            <button onClick={() => algorithm(nodes, edges)}>policz</button>
         </div>
     );
 }
