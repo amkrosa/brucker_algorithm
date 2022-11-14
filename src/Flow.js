@@ -20,8 +20,8 @@ const createNode = (id, d, x, y) => {
 }
 
 const initialNodes = [
-    createNode("t1", 5, 0, 0),
-    createNode("t2", 7, 0, 100),
+    createNode("T1", 5, 0, 0),
+    createNode("T2", 7, 0, 100),
 ];
 
 const initialEdges = [{ id: 'e1-2', source: 'T1', target: 'T2', markerEnd: {type: 'arrowclosed', color: 'black'} }];
