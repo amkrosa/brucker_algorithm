@@ -29,7 +29,7 @@
 //
 // }
 
-export const algorithm = (flowNodes, flowEdges) => {
+export const algorithm = (flowNodes, flowEdges, processes) => {
     const nodes = flowNodes.map(node => {
         return {
             id: node.id,
@@ -63,7 +63,7 @@ export const algorithm = (flowNodes, flowEdges) => {
         console.log("------")
 
         nodesList.push(nodeWithD);
-        for (let i = 0; i < currentNode.parents.length; i++) {
+        for (let i = 0; i < currentNode.parents.length; ++i) {
             let node = nodes.filter(n => n.id === currentNode.parents[i].id)[0]
             console.log(`invoke calculateDStar with i=${i}`)
             console.log(node)
@@ -77,7 +77,7 @@ export const algorithm = (flowNodes, flowEdges) => {
         console.log(currentNode)
         console.log("------")
 
-        if(currentNode.child.length === 0) {
+        if (currentNode.child.length === 0) {
             return {
                 ...currentNode,
                 dStar: 1 - currentNode.d
@@ -104,5 +104,99 @@ export const algorithm = (flowNodes, flowEdges) => {
     console.log(result)
     console.log("------")
 
+    const findAvailableTasks = (addedTasks) => {
+        let tasks = [];
+
+        for (let i = 0; i < result.length; i++) {
+            let skip = false;
+
+            for (let k = 0; k < addedTasks.length; k++) {
+                if (addedTasks[k].id === result[i].id) {
+                    skip = true;
+                }
+            }
+
+            if (skip) {
+                continue;
+            }
+
+            if (result[i].parents.length === 0) {
+                tasks.push(result[i]);
+                continue;
+            }
+
+            let counter = 0;
+
+            for (let j = 0; j < result[i].parents.length; j++) {
+                for (let k = 0; k < addedTasks.length; k++) {
+                    if (addedTasks[k].id === result[i].parents[j].id) {
+                        counter++;
+                    }
+                }
+            }
+
+            if (counter === result[i].parents.length) {
+                tasks.push(result[i])
+            }
+        }
+
+        tasks.sort((a, b) => a.dStar - b.dStar);
+
+        return tasks;
+    }
+
+    const calculateTable = () => {
+        let index = 0;
+        let addedTasks = [];
+        let availableTasks = findAvailableTasks(addedTasks);
+        let table = [];
+
+        while (index < result.length && availableTasks.length > 0) {
+            let processesCount = 0;
+            let tasks = [];
+
+            for (let i = 0; i < availableTasks.length; ++i) {
+                if (processesCount < processes) {
+                    tasks.push(
+                        {
+                            p: processesCount + 1,
+                            task: availableTasks[i]
+                        })
+
+                    addedTasks.push(availableTasks[i])
+                } else {
+                    break;
+                }
+
+                ++processesCount;
+            }
+
+            table.push(tasks);
+
+            availableTasks = findAvailableTasks(addedTasks);
+
+            ++index;
+        }
+
+        const output = [];
+        let lmax = Number.MIN_SAFE_INTEGER;
+
+        for (let i = 0; i < table.length; i++)
+        {
+            const row = [];
+            for(let j = 0; j < table[i].length; j++)
+            {
+                const L = i + 1 - table[i][j].task.d;
+                lmax = L > lmax ? L : lmax;
+                row.push({task: table[i][j], l: L});
+            }
+
+            output.push(row);
+        }
+
+        return {table: output, Lmax: lmax};
+    }
+
+    const table = calculateTable();
     return result
 }

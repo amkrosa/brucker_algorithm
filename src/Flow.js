@@ -64,7 +64,7 @@ export function Flow() {
             </div>
             <input value={dInput} onChange={handleDInput} />
             <button onClick={addNode}>stwórz</button>
-            <button onClick={() => algorithm(nodes, edges)}>policz</button>
+            <button onClick={() => algorithm(nodes, edges, 3)}>policz</button>
         </div>
     );
 }
