@@ -1,4 +1,12 @@
-export const TaskTable = (tasks) => {
+import "./styles.css"
+
+export const TaskTable = (props) => {
+    const backgroundColor = (color) => {
+        return {
+            backgroundColor: `rgba(${color}, 0.4)`,
+        }
+    };
+
     return (
         <table>
             <thead>
@@ -10,10 +18,10 @@ export const TaskTable = (tasks) => {
                 </tr>
             </thead>
             <tbody>
-                {tasks.map(task => {
+                {props.tasks.map(task => {
                     return (
                         <tr>
-                            <td>{task.id}</td>
+                            <td style={backgroundColor(task.color)}>{task.id}</td>
                             <td>{task.d}</td>
                             <td>{task.dStar}</td>
                             <td>{task.l}</td>
