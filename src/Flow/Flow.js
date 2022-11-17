@@ -91,7 +91,7 @@ export function Flow(props) {
         [setEdges]);
 
     const addNode = () => {
-        const node = createNode(getNextTaskNumber(), dInput, randomInt(500), randomInt(500), randomColor())
+        const node = createNode(getNextTaskNumber(), dInput, randomInt(200), randomInt(200), randomColor())
         props.setTasks([...props.tasks, {id: node.id, d: node.data.d, color: node.data.color}])
         setNodes([...nodes, node])
     }
