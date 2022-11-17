@@ -8,7 +8,7 @@ export const TaskTable = (props) => {
     };
 
     return (
-        <table>
+        <table style={{margin: "3em"}}>
             <thead>
                 <tr>
                     <td>id</td>

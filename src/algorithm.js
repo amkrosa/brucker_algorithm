@@ -160,7 +160,7 @@ export const algorithm = (flowNodes, flowEdges, processes) => {
                     tasks.push(
                         {
                             p: processesCount + 1,
-                            task: availableTasks[i]
+                            ...availableTasks[i]
                         })
 
                     addedTasks.push(availableTasks[i])
@@ -186,9 +186,9 @@ export const algorithm = (flowNodes, flowEdges, processes) => {
             const row = [];
             for(let j = 0; j < table[i].length; j++)
             {
-                const L = i + 1 - table[i][j].task.d;
+                const L = i + 1 - table[i][j].d;
                 lmax = L > lmax ? L : lmax;
-                row.push({task: table[i][j], l: L});
+                row.push({...table[i][j], l: L});
             }
 
             output.push(row);
@@ -198,5 +198,7 @@ export const algorithm = (flowNodes, flowEdges, processes) => {
     }
 
     const table = calculateTable();
-    return result
+    console.log("table result")
+    console.log(table)
+    return table
 }

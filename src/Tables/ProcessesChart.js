@@ -1,4 +1,5 @@
 import "./styles.css"
+import {useEffect} from "react";
 
 const ChartCell = (props) => {
     const style = {
@@ -31,7 +32,6 @@ const mapProcessesRows = (processes) => {
 
 
 export const ProcessesChart = (props) => {
-
     return (
         <table style={{margin: "3em"}}>
             <tbody>

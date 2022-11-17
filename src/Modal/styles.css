@@ -1,0 +1,44 @@
+.modal {
+    font-size: 1em;
+    background: rgb(239, 239, 239);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    width: 30rem;
+    height: 6rem;
+}
+.modal > .header {
+    width: 100%;
+    font-size: 1em;
+    text-align: center;
+    padding: 5px;
+    display: flex;
+    justify-content: flex-end;
+}
+.modal > .content {
+    width: 100%;
+    padding: 10px 5px;
+}
+.modal > .actions {
+    width: 100%;
+    padding: 10px 5px;
+    margin-left: 2em;
+    text-align: center;
+}
+.modal > .close {
+    cursor: pointer;
+    position: absolute;
+    display: block;
+    padding: 2px 5px;
+    line-height: 20px;
+    right: -10px;
+    top: -10px;
+    font-size: 24px;
+    background: #ffffff;
+    border-radius: 18px;
+    border: 1px solid #cfcece;
+}
+
+.popup-overlay {
+    background: rgba(0,0,0,.5);
+}
