@@ -43,40 +43,21 @@ export const algorithm = (flowNodes, flowEdges, processes) => {
         }
     })
 
-    console.log(`Begin nodes:`)
-    console.log(nodes)
-    console.log("------")
-
     if (nodes.filter(node => node.child.length === 0).length !== 1) throw new Error("Niepoprawne drzewo - błędna liczba root nodeów");
     if (nodes.filter(node => node.child.length > 1).length !== 0) throw new Error("Niepoprawne drzewo - połączenia z większą ilością childów niż jeden");
 
     const rootNode = nodes.filter(node => node.child.length === 0)[0];
 
-    console.log(`rootNode:`)
-    console.log(rootNode)
-    console.log("------")
-
     const calculateDStar = (currentNode, nodesList, nodes) => {
         const nodeWithD = calculateD(currentNode, nodesList);
-        console.log(`NodeWithD:`)
-        console.log(nodeWithD)
-        console.log("------")
-
         nodesList.push(nodeWithD);
         for (let i = 0; i < currentNode.parents.length; ++i) {
             let node = nodes.filter(n => n.id === currentNode.parents[i].id)[0]
-            console.log(`invoke calculateDStar with i=${i}`)
-            console.log(node)
-            console.log("------")
             calculateDStar(node, nodesList, nodes);
         }
     }
 
     const calculateD = (currentNode, nodeList) => {
-        console.log("calculateD currentNode:")
-        console.log(currentNode)
-        console.log("------")
-
         if (currentNode.child.length === 0) {
             return {
                 ...currentNode,
@@ -100,10 +81,6 @@ export const algorithm = (flowNodes, flowEdges, processes) => {
     }
 
     const result = nodesWithDStar(rootNode, nodes)
-    console.log(`algorithm result list:`)
-    console.log(result)
-    console.log("------")
-
     const findAvailableTasks = (addedTasks) => {
         let tasks = [];
 
@@ -181,11 +158,9 @@ export const algorithm = (flowNodes, flowEdges, processes) => {
         const output = [];
         let lmax = Number.MIN_SAFE_INTEGER;
 
-        for (let i = 0; i < table.length; i++)
-        {
+        for (let i = 0; i < table.length; i++) {
             const row = [];
-            for(let j = 0; j < table[i].length; j++)
-            {
+            for (let j = 0; j < table[i].length; j++) {
                 const L = i + 1 - table[i][j].d;
                 lmax = L > lmax ? L : lmax;
                 row.push({...table[i][j], l: L});
@@ -196,9 +171,5 @@ export const algorithm = (flowNodes, flowEdges, processes) => {
 
         return {table: output, lmax: lmax};
     }
-
-    const table = calculateTable();
-    console.log("table result")
-    console.log(table)
-    return table
+    return calculateTable();
 }
