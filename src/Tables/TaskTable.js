@@ -15,16 +15,18 @@ export const TaskTable = (props) => {
                     <td>d</td>
                     <td>d*</td>
                     <td>L</td>
+                    <td>Lmax</td>
                 </tr>
             </thead>
             <tbody>
-                {props.tasks.map(task => {
+                {props.tasks.table.map((task, i) => {
                     return (
                         <tr>
                             <td style={backgroundColor(task.color)}>{task.id}</td>
                             <td>{task.d}</td>
                             <td>{task.dStar}</td>
                             <td>{task.l}</td>
+                            {i === 0 ? <td rowSpan={props.tasks.table.length}>{props.tasks.lmax}</td> : null}
                         </tr>
                     )
                 })}

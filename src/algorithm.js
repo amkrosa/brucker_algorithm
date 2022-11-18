@@ -194,7 +194,7 @@ export const algorithm = (flowNodes, flowEdges, processes) => {
             output.push(row);
         }
 
-        return {table: output, Lmax: lmax};
+        return {table: output, lmax: lmax};
     }
 
     const table = calculateTable();

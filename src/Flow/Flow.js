@@ -47,7 +47,7 @@ export function Flow(props) {
 
     const handleChangeProcessesNumber = (e) => {
         let processesChart = {}
-        for (let i = 0; i < processesNumber; i++) processesChart[`P${i+1}`] = []
+        for (let i = 0; i < processesNumber; i++) processesChart[`P${i + 1}`] = []
         props.setProcessesChart(processesChart)
         setProcessesNumber(e.target.value)
     }
@@ -56,7 +56,7 @@ export function Flow(props) {
         const resultTable = result.table
         let processesChart = {}
         let tasks = []
-        for (let i = 0; i < processesNumber; i++) processesChart[`P${i+1}`] = []
+        for (let i = 0; i < processesNumber; i++) processesChart[`P${i + 1}`] = []
 
         for (let i = 0; i < resultTable.length; i++) {
             for (let j = 0; j < resultTable[i].length; j++) {
@@ -71,7 +71,7 @@ export function Flow(props) {
                 })
             }
         }
-        props.setTasks(tasks)
+        props.setTasks({lmax: result.lmax, table: tasks})
         props.setProcessesChart(processesChart)
     }
 
@@ -92,7 +92,7 @@ export function Flow(props) {
 
     const addNode = () => {
         const node = createNode(getNextTaskNumber(), dInput, randomInt(200), randomInt(200), randomColor())
-        props.setTasks([...props.tasks, {id: node.id, d: node.data.d, color: node.data.color}])
+        props.setTasks({lmax: null, table: [...props.tasks.table, {id: node.id, d: node.data.d, color: node.data.color}]})
         setNodes([...nodes, node])
     }
 
@@ -115,7 +115,8 @@ export function Flow(props) {
                 <h1 style={{textAlign: "center"}}>Actions</h1>
                 <div className="button-container">
                     <CalculateModal calculate={algorithm} handleCalculate={handleCalculate} nodes={nodes} edges={edges}
-                                    changeProcessesNumber={handleChangeProcessesNumber} processesNumber={processesNumber}/>
+                                    changeProcessesNumber={handleChangeProcessesNumber}
+                                    processesNumber={processesNumber}/>
                     <AddNodeModal addNode={addNode} dInput={dInput} handleDInput={handleDInput}/>
                     {/*<Button onClick={addNode} text={"Create"}/>*/}
                     {/*<Button onClick={() => algorithm(nodes, edges, 3)} text={"Calculate"}/>*/}

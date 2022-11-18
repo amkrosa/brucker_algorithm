@@ -7,7 +7,7 @@ import {useState} from "react";
 
 function App() {
     const [processesChart, setProcessesChart] = useState({"P1": [], "P2": []})
-    const [tasks, setTasks] = useState([])
+    const [tasks, setTasks] = useState({lmax: null, table: []})
 
     return (
         <div className="main">
