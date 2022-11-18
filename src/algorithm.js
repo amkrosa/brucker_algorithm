@@ -12,23 +12,6 @@
 //a następnie sortujemy je w kolejności malejącej i wypluwamy max tyle tasków ile mamy procesów
 //gdy wszystkei taski są oznaczone jako wpisane do tabelki algorytm zakończył prace
 
-
-// class Node {
-//     constructor(node, edges) {
-//         this.id = node.id;
-//         this.position = node.position;
-//         this.d = node.data.d;
-//         //this.color = node.data.color
-//     }
-// }
-//
-// class Tree {
-//     constructor(nodes) {
-//
-//     }
-//
-// }
-
 export const algorithm = (flowNodes, flowEdges, processes) => {
     const nodes = flowNodes.map(node => {
         return {
