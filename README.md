@@ -1,6 +1,6 @@
 ## Opis zadania
 
-**Algorytm Bruckera **stosujemy aby zminimalizować opóźnienie wykonywanych równolegle zadań. Jego złożoność obliczeniowa to **O(nlog n**). Przebieg algorytmu możemy zilustrować następująco:
+**Algorytm Bruckera** stosujemy aby zminimalizować opóźnienie wykonywanych równolegle zadań. Jego złożoność obliczeniowa to **O(nlog n**). Przebieg algorytmu możemy zilustrować następująco:
 1. Bierzemy zadanie, które nie ma następnika (tzn. nie jest od niego zależne żadne kolejne zadanie) i wyliczamy dla niego liczbę **d***:
    **d* = 1 - d**
    gdzie d to planowany czas wykonania zadania.
