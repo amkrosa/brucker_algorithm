@@ -100,7 +100,7 @@ export const algorithm = (flowNodes, flowEdges, processes) => {
             }
         }
 
-        tasks.sort((a, b) => a.dStar - b.dStar);
+        tasks.sort((a, b) => b.dStar - a.dStar);
 
         return tasks;
     }
@@ -110,6 +110,8 @@ export const algorithm = (flowNodes, flowEdges, processes) => {
         let addedTasks = [];
         let availableTasks = findAvailableTasks(addedTasks);
         let table = [];
+
+        console.log(availableTasks)
 
         while (index < result.length && availableTasks.length > 0) {
             let processesCount = 0;
@@ -151,6 +153,7 @@ export const algorithm = (flowNodes, flowEdges, processes) => {
 
             output.push(row);
         }
+        console.log(output)
 
         return {table: output, lmax: lmax};
     }
