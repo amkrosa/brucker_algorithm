@@ -1,70 +1,20 @@
-# Getting Started with Create React App
+## Opis zadania
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**Algorytm Bruckera** stosujemy aby zminimalizować opóźnienie wykonywanych równolegle zadań. Jego złożoność obliczeniowa to **O(nlog n**). Przebieg algorytmu możemy zilustrować następująco:
+1. Bierzemy zadanie, które nie ma następnika (tzn. nie jest od niego zależne żadne kolejne zadanie) i wyliczamy dla niego liczbę **d***:
+   **d* = 1 - d**
+   gdzie d to planowany czas wykonania zadania.
+2. Następnie bierzemy wszystkie zadania od których jest ono zależne i wyliczamy parę (**d\*<sub>1</sub>,d\*<sub>2</sub>**):
+   **d\*<sub>1</sub> = 1 - d
+   d\*<sub>2</sub> = 1 + d\*prev**
+   i wybieramy **d\* = max(d\*<sub>1</sub>,d\*<sub>2</sub>)** gdzie **d\*** to maksymalna liczba z pary **(d\*<sub>1</sub>,d\*<sub>2</sub>)** dla danego kroku.
+3. Gdy policzymy wartości dla każdego zadania to szeregujemy je w malejącej kolejności **max(d\*<sub>1</sub>,d\*<sub>2</sub>)** i zapisujemy z zachowaniem ograniczenia kolejnościowego zadań.
+4. Dla każdego zadania sprawdzamy w którym momencie się wykonało i odejmujemy od tej wartości oczekiwany czas wykonania. Największa z liczb które nam wyjdą to **L<sub> max</sub>**, czyli maksymalne opóźnienie.
 
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Uruchomienie aplikacji
+Najłatwiejszym sposobem jest instalacja **Dockera** na dowolnym systemie operacyjnym, który go wspiera, np. korzystając z Docker Desktop, którego można znaleźć pod linkiem https://docs.docker.com/desktop/. Następnie, znajdując się w głównym folderze projektu należy uruchomić komendy w np. PowerShellu lub terminalu:
+```powershell
+docker-compose up -d --build
+docker-compose up
+```
+Pierwsza komenda może zająć chwilę, ze względu na czas potrzebny na ściągniecie i zbudowanie obrazu. Druga powinna zająć chwilę, po której aplikacja będzie dostępna pod http://localhost:3001/.
